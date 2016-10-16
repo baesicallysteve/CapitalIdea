@@ -1,0 +1,39 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+
+%SetFonts
+
+%SetFonts
+
+
+\title{CSC 217 JA Fall 2016 Project 1: A Capital Idea}
+\author{Steven Turner N00836867}
+\date{Monday October 17, 2016}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section{Programming Environment}
+When creating this program, I ran it in the terminal for El Capitan. I downloaded the GNU C Compiler and then decided that the text editor I would use would be Sublime Text 2.
+
+\section{Does this program work for all potential inputs?}
+
+\section{Modularity}
+I believe that my use of modularity deserve a lot of points. I didn't just have one function that did everything, but I broke it up into several functions that all could be used again for different purposes.
+
+\section{Who did you ask for help?}
+I didn't really ask for too much help. I did ask for help from Professor Merlo, however I do believe I miswrote my email address when signing up for his website, because my emails never came through. Other than that, I used the getLine() function from the C Programming textbook.
+
+\section{Debugging}
+My biggest problem would have to be adding the period to the sentence. When I first started to debug my program, I had the function search for a doubleSpace and then it would move every character starting with the first double space over one and add a period to where the first space was. It's just never worked.
+
+While it wasn't my go to move to do this, I did eventually burn the entire doubleSpace method down and start anew. I decided to create the copy of my string and then where the first space of the string is, it is replaced with a period and then replaced the next character over the second space with a space. Then after that space, I add every single character from that point forward from the copy of the string into the original string. That was more effective. 
+
+
+
+\end{document}  
