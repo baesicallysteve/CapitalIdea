@@ -128,9 +128,9 @@ int doubleSpace(char string[], int lim){
 	}
 
 	for(i = 0; i < lim; i++){
-		//This statement will create the double spae effet by destroying the character array and then recreating it with
+		//This statement will create the double space effet by destroying the character array and then recreating it with
 		// a copy of the original array
-			if(string[i] == '.' && string[i+3] != ' '){
+			if(string[i] == '.' && string[i+2] != ' '){
 				addCharAt(string, i+2, lim, ' ');
 				while(i < lim){
 					addCharAt(string, i+3, lim, newString[i+2]);
