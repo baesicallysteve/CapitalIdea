@@ -1,4 +1,11 @@
 #include <stdio.h>
+/*
+Steven Turner (Steven.Turner967@students.ncc.edu)
+CSC 217 JA
+Project 1: A Capital Idea
+Due 10/17/2016 11:59 pm
+project1.c
+*/
 char alphaUppers[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
 							'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 
 							'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -6,7 +13,9 @@ char alphaUppers[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
 char alphaLowers[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 					'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
 					'y', 'z'};
-//Function getterline receives standard input
+/*Function getterline receives standard input. MODIFIED FROM THE C PROGRAMMING LANGUAGE BY 
+BRIAN W. KERNIGHAN AND DENNIS M. RITCHIE
+*/
 int getterline(char s[], int lim){
 	int c, i;
 
@@ -15,6 +24,10 @@ int getterline(char s[], int lim){
 	if( c == '\n'){
 		s[i] = c;
 		i++;
+	}
+//The negative one will signify the end of the file
+	if( c == EOF){
+		return -1;
 	}
 	s[i] = '\0';
 	return i;
@@ -66,6 +79,20 @@ int isLowerCase(char s){
 	}
 }
 
+
+
+/*
+ addCharAt is a function that takes four parameters. A character array, a limit, an index and a character.
+ It will add a character to a specific index of the array, as long as it's between 0 and the limit.
+*/
+
+int addCharAt(char string[], int index,int lim, char character){
+	if(index >= lim){
+		return -1;
+	}
+	string[index] = character;
+	return 1;
+}
 /*
 makeCaps takes a char array and an int and makes the first character a capital letter 
 and then if there is a period at all it makes the next character a capital letter.
@@ -81,28 +108,10 @@ int makeCaps(char string[],int lim){
 
 			// if there is a period and more characters and the next character is a lowercase letter than change it to an uppercase letter
 			if(string[i] == '.' && i < lim && isLowerCase(string[i+3]) == 1){
-				string[i+3] = alphaUppers[getAlphaNum(string[i+3])];
+				addCharAt(string, i+3, lim, alphaUppers[getAlphaNum(string[i+3])]);
 			}
 
 	}
-	return 1;
-}
-
-int isDoubleSpaced(char string[], int lim){
-	int i;
-	int isDoubled = 0;
-	for(i = 0; i < lim; i++){
-		if(string[i] == ' ' && string[i+1] == ' ')
-			isDoubled = 1;
-	}
-	return isDoubled;
-}
-
-int addCharAt(char string[], int index,int lim, char character){
-	if(index >= lim){
-		return -1;
-	}
-	string[index] = character;
 	return 1;
 }
 /*
@@ -112,41 +121,50 @@ int addCharAt(char string[], int index,int lim, char character){
 */
 int doubleSpace(char string[], int lim){
 	int i; // an increment variable
-	int j = 0;
-	char temp1; 
-	char temp2;
+	int j ; // an incremental variable
+	int c = 1; //a decremental variable that will accomodate for the adding of a space to the string.
 	char newString[lim];
 	for(i = 0; i < lim; i++){
 
 		//This statement makes sure that if there isn't already a period and a doublespace in the input, there will be 
-		// a period
+		// a period where the first double space is.
 		if( string[i-1] != '.' && string[i] == ' ' && string[i+1] == ' '){
 			addCharAt(string, i, lim, '.');
 			
 		}
+		// Copies the array with a period where the first double space is into a new array
 		addCharAt(newString, i, lim, string[i]);
 	}
 
 	for(i = 0; i < lim; i++){
 		//This statement will create the double spae effet by destroying the character array and then recreating it with
 		// a copy of the original array
-			if(string[i] == '.' && string[i+3] != ' '){
-				addCharAt(string, i+2, lim, ' ');
-				while(i < lim){
-					addCharAt(string, i+3, lim, newString[i+2]);
-					++i;
+			if(string[i-1] == '.' && string[i] == ' ' && string[i+1] != ' '){
+				addCharAt(string, i+1, lim, ' ');
+					for(j = i; j < lim; j++){
+					addCharAt(string, j+2, lim, newString[j+c]);
+					
+					}
+					c--;// whenever the string adds a character, you must decrement by one inorder to successfully add the 
+						//copied characters back to the array
 				}
-			}
+
 		}
+
 		return 1;
 	}
 
 int main(){
-	int lim = 991;
+	int lim = 990;
 	char string[lim];
-	getterline(string, lim);
+	int fin = getterline(string, lim); // How we are going to tell if getterline == EOF
+	//while getterline != EOF
+	while(fin != -1){
 	doubleSpace(string, lim);
 	makeCaps(string, lim);
-	printf("%s", string);
+	printf("%s\n", string);
+	fin = getterline(string, lim);
+}
+
 	return -1;
 }
